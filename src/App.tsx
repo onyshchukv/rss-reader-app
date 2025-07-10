@@ -10,6 +10,9 @@ type Feed = {
   icon?: string;
 };
 
+
+
+
 const App: React.FC = () => {
   const [feeds, setFeeds] = useState<Feed[]>(() => {
     const saved = localStorage.getItem("rssFeeds");
@@ -169,9 +172,7 @@ const handleAddFeed = async (e: React.FormEvent) => {
 
   setLoading(true);
   try {
-    const res = await fetch(
-      `https://feed2json.org/v1/feed.json?url=${encodeURIComponent(url)}`
-    );
+    const res = await fetch(`/api/rss?url=${encodeURIComponent(url)}`);
     const data = await res.json();
     const newFeed: Feed = {
       url,
@@ -218,9 +219,7 @@ const updateAllFeeds = async () => {
   });
   for (let i = 0; i < feeds.length; i++) {
     try {
-      const res = await fetch(
-        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feeds[i].url)}`
-      );
+      const res = await fetch(`/api/rss?url=${encodeURIComponent(feeds[i].url)}`);
       const data = await res.json();
       setFeeds(prevFeeds => {
         const updated = [...prevFeeds];
