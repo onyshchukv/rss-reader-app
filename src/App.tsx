@@ -454,36 +454,56 @@ useEffect(() => {
         {!selectedFeed && <div>Выберите фид из списка</div>}
         {selectedFeed && (
           <ul style={{ padding: 0, margin: 0, listStyle: "none" }}>
-            {selectedFeed.items.slice(0, visibleCount).map((item, idx) => (
-              <li
-                key={idx}
+          {selectedFeed.items.slice(0, visibleCount).map((item, idx) => (
+            <li
+              key={idx}
+              style={{
+                background: "#fafbfc",
+                border: "1px solid #e0e0e0",
+                borderRadius: 10,
+                boxShadow: "0 2px 8px #0001",
+                marginBottom: 24,
+                padding: 20,
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontWeight: "bold", fontSize: 18, marginBottom: 4 }}
+              >
+                {item.title}
+              </a>
+              <div style={{ fontSize: 12, color: "#888" }}>{item.pubDate}</div>
+              {renderContentWithImages(item.content || item.description || "")}
+            </li>
+          ))}
+          {selectedFeed.items.length === 0 && <li>Нет новостей</li>}
+          {visibleCount < selectedFeed.items.length && (
+            <li style={{ textAlign: "center", listStyle: "none" }}>
+              <button
+                onClick={() => setVisibleCount(c => c + 10)}
                 style={{
-                  background: "#fafbfc",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: 10,
-                  boxShadow: "0 2px 8px #0001",
-                  marginBottom: 24,
-                  padding: 20,
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
+                  margin: "16px auto 0 auto",
+                  padding: "10px 32px",
+                  borderRadius: 8,
+                  border: "1px solid #1976d2",
+                  background: "#fff",
+                  color: "#1976d2",
+                  cursor: "pointer",
+                  fontWeight: 500,
+                  fontSize: 16
                 }}
               >
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ fontWeight: "bold", fontSize: 18, marginBottom: 4 }}
-                >
-                  {item.title}
-                </a>
-                <div style={{ fontSize: 12, color: "#888" }}>{item.pubDate}</div>
-                {renderContentWithImages(item.content || item.description || "")}
-              </li>
-            ))}
-            {selectedFeed.items.length === 0 && <li>Нет новостей</li>}
-          </ul>
+                Загрузить еще
+              </button>
+            </li>
+          )}
+        </ul>
         )}
       </div>
     </div>
