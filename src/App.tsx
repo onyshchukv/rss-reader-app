@@ -10,8 +10,8 @@ type Feed = {
   icon?: string;
 };
 
-
-
+// Количество отображаемых новостей
+const [visibleCount, setVisibleCount] = useState(10);
 
 const App: React.FC = () => {
   const [feeds, setFeeds] = useState<Feed[]>(() => {
@@ -86,6 +86,12 @@ const [readPosts, setReadPosts] = useState<{ [feedUrl: string]: Set<string> }>((
   }
   return {};
 });
+
+// Сбросьте количество видимых постов при смене фида
+useEffect(() => {
+  setVisibleCount(10);
+}, [selectedFeedIdx]);
+
 
 // Сохраняйте прочитанные посты в localStorage
 useEffect(() => {
@@ -448,7 +454,7 @@ useEffect(() => {
         {!selectedFeed && <div>Выберите фид из списка</div>}
         {selectedFeed && (
           <ul style={{ padding: 0, margin: 0, listStyle: "none" }}>
-            {selectedFeed.items.map((item, idx) => (
+            {selectedFeed.items.slice(0, visibleCount).map((item, idx) => (
               <li
                 key={idx}
                 style={{
