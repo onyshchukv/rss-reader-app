@@ -9,10 +9,7 @@ type Feed = {
   title?: string;
   icon?: string;
 };
-
-
 const App: React.FC = () => {
-
   // Количество отображаемых новостей
   const [visibleCount, setVisibleCount] = useState(10);
   const [feeds, setFeeds] = useState<Feed[]>(() => {
@@ -31,7 +28,7 @@ const App: React.FC = () => {
   // Функция для обработки клика по картинке
   const handleImageClick = (src: string) => {
     setModalImage(src);
-  };
+};
   // Модификация вывода новостей: обработка кликов по img
 function renderContentWithImages(content: string) {
   return (
