@@ -10,10 +10,11 @@ type Feed = {
   icon?: string;
 };
 
-// Количество отображаемых новостей
-const [visibleCount, setVisibleCount] = useState(10);
 
 const App: React.FC = () => {
+
+  // Количество отображаемых новостей
+  const [visibleCount, setVisibleCount] = useState(10);
   const [feeds, setFeeds] = useState<Feed[]>(() => {
     const saved = localStorage.getItem("rssFeeds");
     return saved ? JSON.parse(saved) : [];
